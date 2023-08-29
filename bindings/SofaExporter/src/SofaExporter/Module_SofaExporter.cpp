@@ -29,22 +29,13 @@ namespace sofapython3
 
 PYBIND11_MODULE(SofaExporter, m) {
     m.doc() = R"doc(
-              Binding for the SofaExporter plugin
-              -----------------------------------
-
-              Provides python bindings for the SofaExporter module
+              Export in STL or OBJ from from a SOFA simulation
 
               Example of use:
 
               .. code-block:: python
 
                 import SofaExporter
-
-              .. autosummary::
-                  :toctree: _autosummary/_autosummary
-
-                  SofaExporter.STLExporter
-                  SofaExporter.VisualModelOBJExporter
 
               )doc";
 

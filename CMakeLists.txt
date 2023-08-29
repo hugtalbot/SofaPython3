@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.12)
 
-project(SofaPython3 VERSION 20.12.00)
+project(SofaPython3 VERSION 23.06.00)
 
 find_package(Sofa.Config REQUIRED)
 
@@ -175,6 +175,9 @@ add_subdirectory(Plugin)
 add_subdirectory(bindings)
 add_subdirectory(examples)
 add_subdirectory(docs)
+if (SP3_BUILD_TEST)
+    add_subdirectory(Testing)
+endif()
 
 SP3_add_python_package(
     SOURCE_DIRECTORY

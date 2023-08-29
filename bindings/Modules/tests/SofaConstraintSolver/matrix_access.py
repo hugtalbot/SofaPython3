@@ -33,7 +33,6 @@ class Test(unittest.TestCase):
         root.addObject("EdgeSetGeometryAlgorithms", drawEdges=True)
         root.addObject("FixedConstraint", indices=[0])
         root.addObject("DiagonalMass", name="mass", totalMass="1e-3")
-        root.addObject("MappingGeometricStiffnessForceField", mapping="@./extensionsNode/distanceMapping")
 
         ext = root.addChild("extensionsNode")
         ext.addObject("MechanicalObject", template="Vec1d", name="extensionsDOF")
@@ -50,4 +49,4 @@ class Test(unittest.TestCase):
         W = root.constraint_solver.W()
 
         self.assertEqual(W.ndim, 2)
-        self.assertEqual(W.shape, (38, 38))
+        self.assertEqual(W.shape, (19, 19))
