@@ -3,6 +3,8 @@ project(Bindings.Sofa.Core)
 set(HEADER_FILES
     ${CMAKE_CURRENT_SOURCE_DIR}/Binding_Base.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Binding_Base_doc.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/Binding_BaseClass.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/Binding_BaseClass_doc.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Binding_DataDict.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Binding_DataDict_doc.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Binding_BaseData.h
@@ -45,10 +47,13 @@ set(HEADER_FILES
     ${CMAKE_CURRENT_SOURCE_DIR}/Binding_BaseCamera_doc.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Binding_Topology.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Binding_BaseMeshTopology.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/Binding_TaskScheduler.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/Binding_TaskScheduler_doc.h
 )
 
 set(SOURCE_FILES
     ${CMAKE_CURRENT_SOURCE_DIR}/Binding_Base.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Binding_BaseClass.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Binding_BaseData.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Binding_DataDict.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Binding_BaseObject.cpp
@@ -70,11 +75,12 @@ set(SOURCE_FILES
     ${CMAKE_CURRENT_SOURCE_DIR}/Binding_NodeIterator.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Binding_PointSetTopologyModifier.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Binding_Prefab.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Submodule_Core.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Binding_PythonScriptEvent.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Binding_BaseLink.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Binding_Topology.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Binding_BaseMeshTopology.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Binding_TaskScheduler.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Submodule_Core.cpp
 )
 
 if (NOT TARGET SofaPython3::Plugin)
@@ -82,6 +88,7 @@ if (NOT TARGET SofaPython3::Plugin)
 endif()
 
 sofa_find_package(Sofa.Simulation.Core REQUIRED)
+sofa_find_package(Sofa.SimpleApi REQUIRED)
 sofa_find_package(Sofa.Component.Collision.Response.Contact REQUIRED) # for Binding_ContactListener
 sofa_find_package(Sofa.Component.Visual REQUIRED) # for Binding_BaseCamera
 
@@ -92,5 +99,5 @@ SP3_add_python_module(
     DESTINATION  Sofa
     SOURCES      ${SOURCE_FILES}
     HEADERS      ${HEADER_FILES}
-    DEPENDS      Sofa.Simulation.Core Sofa.Component.Collision.Response.Contact Sofa.Component.Visual SofaPython3::Plugin
+    DEPENDS      Sofa.Simulation.Core Sofa.SimpleApi Sofa.Component.Collision.Response.Contact Sofa.Component.Visual SofaPython3::Plugin
 )

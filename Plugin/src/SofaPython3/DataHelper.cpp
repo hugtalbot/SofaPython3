@@ -249,8 +249,15 @@ py::slice toSlice(const py::object& o)
 
 std::map<void*, std::pair<int, py::array>>& getObjectCache()
 {
-    static std::map<void*, std::pair<int, py::array>> s_objectcache {} ;
+    static std::map<void*, std::pair<int, py::array>>  s_objectcache{};
     return s_objectcache;
+}
+
+
+void clearCache()
+{
+    msg_info("SofaPython3") << "Clearing Sofa.Core cache...";
+    getObjectCache().clear();
 }
 
 void trimCache()
@@ -362,6 +369,8 @@ py::buffer_info toBufferInfo(BaseData& m)
 
 py::object convertToPython(BaseData* d)
 {
+    assert(d != nullptr);
+
     const AbstractTypeInfo& nfo{ *(d->getValueTypeInfo()) };
     if(hasArrayFor(d)){
         return getPythonArrayFor(d);
@@ -377,21 +386,28 @@ py::object convertToPython(BaseData* d)
         }
         else
         {
-            size_t dim0 = nfo.size(d->getValueVoidPtr())/nfo.size();
-            size_t dim1 = nfo.size();
-            for(size_t i=0;i<dim0;i++)
+            if (nfo.size() != 0)
             {
-                py::list list1;
-                for(size_t j=0;j<dim1;j++)
+                size_t dim0 = nfo.size(d->getValueVoidPtr())/nfo.size();
+                size_t dim1 = nfo.size();
+                for(size_t i=0;i<dim0;i++)
                 {
-                    if(nfo.Integer())
-                        list1.append(nfo.getIntegerValue(d->getValueVoidPtr(),i*dim1+j));
-                    else if(nfo.Scalar())
-                        list1.append(nfo.getScalarValue(d->getValueVoidPtr(),i*dim1+j));
-                    else
-                        throw py::type_error("Invalid type");
+                    py::list list1;
+                    for(size_t j=0;j<dim1;j++)
+                    {
+                        if(nfo.Integer())
+                            list1.append(nfo.getIntegerValue(d->getValueVoidPtr(),i*dim1+j));
+                        else if(nfo.Scalar())
+                            list1.append(nfo.getScalarValue(d->getValueVoidPtr(),i*dim1+j));
+                        else
+                            throw py::type_error("Invalid type");
+                    }
+                    list.append(list1);
                 }
-                list.append(list1);
+            }
+            else
+            {
+                throw std::runtime_error("Abstract type info corresponding to Data " + d->getName() + " is empty\n");
             }
         }
         return std::move(list);

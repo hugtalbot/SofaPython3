@@ -12,7 +12,7 @@ def main():
     createScene(root)
 
     # Once defined, initialization of the scene graph
-    Sofa.Simulation.init(root)
+    Sofa.Simulation.initRoot(root)
 
     # Run the simulation for 10 steps
     for iteration in range(10):
@@ -24,6 +24,11 @@ def main():
 
 # Function called when the scene graph is being created
 def createScene(root):
+
+    root.addObject('RequiredPlugin', name='Sofa.Component.StateContainer')
+
+    # Scene must now include a AnimationLoop
+    root.addObject('DefaultAnimationLoop')
 
     # Add new nodes and objects in the scene
     node1 = root.addChild("Node1")

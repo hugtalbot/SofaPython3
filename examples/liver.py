@@ -9,12 +9,10 @@ USE_GUI = True
 def main():
     import SofaRuntime
     import Sofa.Gui
-    SofaRuntime.importPlugin("SofaOpenglVisual")
-    SofaRuntime.importPlugin("SofaImplicitOdeSolver")
 
     root = Sofa.Core.Node("root")
     createScene(root)
-    Sofa.Simulation.init(root)
+    Sofa.Simulation.initRoot(root)
 
     if not USE_GUI:
         for iteration in range(10):
@@ -31,18 +29,33 @@ def createScene(root):
     root.gravity=[0, -9.81, 0]
     root.dt=0.02
 
-    root.addObject('DefaultVisualManagerLoop')
+    root.addObject("RequiredPlugin", pluginName=[    'Sofa.Component.Collision.Detection.Algorithm',
+    'Sofa.Component.Collision.Detection.Intersection',
+    'Sofa.Component.Collision.Geometry',
+    'Sofa.Component.Collision.Response.Contact',
+    'Sofa.Component.Constraint.Projective',
+    'Sofa.Component.IO.Mesh',
+    'Sofa.Component.LinearSolver.Iterative',
+    'Sofa.Component.Mapping.Linear',
+    'Sofa.Component.Mass',
+    'Sofa.Component.ODESolver.Backward',
+    'Sofa.Component.SolidMechanics.FEM.Elastic',
+    'Sofa.Component.StateContainer',
+    'Sofa.Component.Topology.Container.Dynamic',
+    'Sofa.Component.Visual',
+    'Sofa.GL.Component.Rendering3D'
+    ])
+
     root.addObject('DefaultAnimationLoop')
 
     root.addObject('VisualStyle', displayFlags="showCollisionModels")
-    root.addObject('RequiredPlugin', pluginName="Sofa.Component")
-    root.addObject('DefaultPipeline', name="CollisionPipeline")
+    root.addObject('CollisionPipeline', name="CollisionPipeline")
     root.addObject('BruteForceBroadPhase', name="BroadPhase")
     root.addObject('BVHNarrowPhase', name="NarrowPhase")
-    root.addObject('DefaultContactManager', name="CollisionResponse", response="PenalityContactForceField")
+    root.addObject('CollisionResponse', name="CollisionResponse", response="PenalityContactForceField")
     root.addObject('DiscreteIntersection')
 
-    root.addObject('MeshObjLoader', name="LiverSurface", filename="mesh/liver-smooth.obj")
+    root.addObject('MeshOBJLoader', name="LiverSurface", filename="mesh/liver-smooth.obj")
 
     liver = root.addChild('Liver')
     liver.addObject('EulerImplicitSolver', name="cg_odesolver", rayleighStiffness="0.1", rayleighMass="0.1")
@@ -53,7 +66,7 @@ def createScene(root):
     liver.addObject('TetrahedronSetGeometryAlgorithms', template="Vec3d", name="GeomAlgo")
     liver.addObject('DiagonalMass', name="Mass", massDensity="1.0")
     liver.addObject('TetrahedralCorotationalFEMForceField', template="Vec3d", name="FEM", method="large", poissonRatio="0.3", youngModulus="3000", computeGlobalMatrix="0")
-    liver.addObject('FixedConstraint', name="FixedConstraint", indices="3 39 64")
+    liver.addObject('FixedProjectiveConstraint', name="FixedConstraint", indices="3 39 64")
 
     visu = liver.addChild('Visu')
     visu.addObject('OglModel', name="VisualModel", src="@../../LiverSurface")

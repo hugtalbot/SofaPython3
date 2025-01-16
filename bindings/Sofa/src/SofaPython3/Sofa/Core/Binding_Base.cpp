@@ -34,6 +34,8 @@ using sofa::helper::WriteOnlyAccessor;
 
 #include <SofaPython3/PythonFactory.h>
 
+#include <SofaPython3/Sofa/Core/Binding_BaseData.h>
+#include <SofaPython3/Sofa/Core/Binding_BaseLink.h>
 #include <SofaPython3/Sofa/Core/Binding_LinkPath.h>
 #include <SofaPython3/Sofa/Core/Binding_Base.h>
 #include <SofaPython3/Sofa/Core/Binding_Base_doc.h>
@@ -447,9 +449,21 @@ py::object BindingBase::setDataValues(Base& self, py::kwargs kwargs)
     return py::none();
 }
 
+auto getBaseBinding(py::module& m)
+{
+    static py::class_<Base, py_shared_ptr<Base>> base(m, "Base", py::dynamic_attr(), doc::base::BaseClass);
+    return base;
+}
+
+void moduleForwardAddBase(py::module& m)
+{
+    getBaseBinding(m);
+}
+
 void moduleAddBase(py::module &m)
 {
-    py::class_<Base, py_shared_ptr<Base>> base(m, "Base", py::dynamic_attr(), doc::base::BaseClass);
+    auto base = getBaseBinding(m);
+
     /// set & get the name as string. The alternative is to access the data field using
     /// obj.name.value = "aName"
     base.def("getName", [](Base& b){ return b.getName(); }, sofapython3::doc::base::getName);

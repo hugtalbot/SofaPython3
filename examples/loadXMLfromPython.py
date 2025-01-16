@@ -7,9 +7,8 @@ def createScene(root):
 	# Call the above function to create the scene graph
 	scene="""
 			<Node dt="0.005" gravity="0 0 0">
-				<RequiredPlugin name="SofaOpenglVisual" />
-				<DefaultVisualManagerLoop/>
-				<DefaultAnimationLoop/>
+                <RequiredPlugin name="Sofa.GL.Component.Rendering2D" />
+                <RequiredPlugin name="Sofa.Component.StateContainer" />
 
 				<Node name="child1">
 					<MechanicalObject template="Rigid3d" position="0 0 0   0 0 0 1" showObject="1"/>
@@ -35,7 +34,7 @@ def main():
 
 	root = Sofa.Core.Node("root")
 	createScene(root)
-	Sofa.Simulation.init(root)
+	Sofa.Simulation.initRoot(root)
 
 	# Find out the supported GUIs
 	print ("Supported GUIs are: " + Sofa.Gui.GUIManager.ListSupportedGUI(","))

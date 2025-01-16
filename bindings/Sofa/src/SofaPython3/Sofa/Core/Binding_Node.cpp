@@ -27,7 +27,7 @@
 #include <sofa/core/objectmodel/BaseData.h>
 using sofa::core::objectmodel::BaseData;
 
-#include <sofa/simulation/graph/SimpleApi.h>
+#include <sofa/simpleapi/SimpleApi.h>
 namespace simpleapi = sofa::simpleapi;
 
 #include <sofa/helper/logging/Messaging.h>
@@ -575,6 +575,13 @@ py::object getMechanicalState(Node *self)
 }
 
 
+py::object hasODESolver(Node *self)
+{
+    const bool hasODE = self->solver.size() > 0;
+    return py::cast(hasODE);
+}
+
+
 py::object getMechanicalMapping(Node *self)
 {
     sofa::core::BaseMapping* mapping = self->mechanicalMapping.get();
@@ -606,7 +613,7 @@ void moduleAddNode(py::module &m) {
     /// typing system.
     py::class_<sofa::core::objectmodel::BaseNode,
             sofa::core::objectmodel::Base,
-            py_shared_ptr<sofa::core::objectmodel::BaseNode>>(m, "BaseNode");
+            py_shared_ptr<sofa::core::objectmodel::BaseNode>>(m, "BaseNode", "Base class for simulation node");
 
     py::class_<Node, sofa::core::objectmodel::BaseNode,
             sofa::core::objectmodel::Context, py_shared_ptr<Node>>
@@ -648,6 +655,7 @@ void moduleAddNode(py::module &m) {
     p.def("getAsACreateObjectParameter", &getLinkPath, sofapython3::doc::sofa::core::Node::getAsACreateObjectParameter);
     p.def("detachFromGraph", &Node::detachFromGraph, sofapython3::doc::sofa::core::Node::detachFromGraph);
     p.def("getMass", &getMass, sofapython3::doc::sofa::core::Node::getMass);
+    p.def("hasODESolver", &hasODESolver, sofapython3::doc::sofa::core::Node::hasODESolver);
     p.def("getForceField", &getForceField, sofapython3::doc::sofa::core::Node::getForceField);
     p.def("getMechanicalState", &getMechanicalState, sofapython3::doc::sofa::core::Node::getMechanicalState);
     p.def("getMechanicalMapping", &getMechanicalMapping, sofapython3::doc::sofa::core::Node::getMechanicalMapping);

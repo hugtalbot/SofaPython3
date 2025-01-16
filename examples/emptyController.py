@@ -85,6 +85,7 @@ class EmptyController(Sofa.Core.Controller):
 
 def createScene(root):
     root.dt = 0.01
+    root.bbox = [[-1, -1, -1],[1,1,1]]
     root.addObject('DefaultVisualManagerLoop')
     root.addObject('DefaultAnimationLoop')
 
@@ -95,9 +96,10 @@ def createScene(root):
 def main():
     import SofaRuntime
     import Sofa.Gui
-    SofaRuntime.importPlugin("SofaOpenglVisual")
+
     root=Sofa.Core.Node("root")
     createScene(root)
+    Sofa.Simulation.initRoot(root)
 
     Sofa.Gui.GUIManager.Init("myscene", "qglviewer")
     Sofa.Gui.GUIManager.createGUI(root, __file__)

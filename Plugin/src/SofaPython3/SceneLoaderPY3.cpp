@@ -20,6 +20,7 @@
 
 #include <sstream>
 #include <fstream>
+#include <sofa/simulation/Simulation.h>
 
 #include <sofa/simulation/graph/DAGNode.h>
 using sofa::simulation::graph::DAGNode;
@@ -74,11 +75,28 @@ void SceneLoaderPY3::getExtensionList(ExtensionList* list)
     list->push_back("py");
 }
 
+bool SceneLoaderPY3::syntaxForAddingRequiredPlugin(const std::string& pluginName,
+                                                   const std::vector<std::string>& listComponents, std::ostream& ss, sofa::simulation::Node* nodeWhereAdded)
+{
+    ss << nodeWhereAdded->getName() << ".addObject('RequiredPlugin', name='" << pluginName << "')";
+    if (!listComponents.empty())
+    {
+        ss <<  " # Needed to use components [" << sofa::helper::join(listComponents, ',');
+    }
+    ss << "]" << msgendl;
+    return true;
+}
+
 sofa::simulation::Node::SPtr SceneLoaderPY3::doLoad(const std::string& filename, const std::vector<std::string>& sceneArgs)
 {
-    sofa::simulation::Node::SPtr root = sofa::simulation::Node::create("root");
-    loadSceneWithArguments(filename.c_str(), sceneArgs, root);
-    return root;
+    if (sofa::simulation::Simulation* simulation = sofa::simulation::getSimulation())
+    {
+        sofa::simulation::Node::SPtr root = simulation->createNewNode("root");
+        loadSceneWithArguments(filename.c_str(), sceneArgs, root);
+        return root;
+    }
+
+    return nullptr;
 }
 
 
@@ -100,7 +118,7 @@ void SceneLoaderPY3::loadSceneWithArguments(const char *filename,
 
         if(!py::hasattr(module, "createScene"))
         {
-            msg_error() << "Missing createScene function";
+            msg_error("SofaPython3") << "Missing createScene function";
             return ;
         }
 
@@ -111,9 +129,18 @@ void SceneLoaderPY3::loadSceneWithArguments(const char *filename,
         root_out->setInstanciationSourceFilePos(0);
     }catch(py::error_already_set& e)
     {
-        msg_error() << "Unable to completely load the scene from file '"<< filename << "'." << msgendl
-                    << "Python exception: " << msgendl
-                    << "  " << e.what();
+        std::stringstream ss;
+        ss << "Unable to completely load the scene from file '"<< filename << "'." << msgendl
+            << "Python exception: " << msgendl
+            << "  " << e.what();
+        if( py::isinstance(e.type(), py::eval("type(DeprecationWarning)")) && !py::isinstance(e.type(), py::eval("type(AttributeError)")))
+        {
+            msg_deprecated() << ss.str();
+        }else
+        {
+            msg_error() << ss.str();
+        }
+
     }
 
 }

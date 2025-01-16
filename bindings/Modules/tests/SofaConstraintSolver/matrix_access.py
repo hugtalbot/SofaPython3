@@ -1,6 +1,5 @@
 ﻿import unittest
 import Sofa.Core
-import Sofa.Components
 from Sofa import SofaConstraintSolver
 
 class Test(unittest.TestCase):
@@ -15,6 +14,7 @@ class Test(unittest.TestCase):
                                                      "Sofa.Component.Constraint.Projective",
                                                      "Sofa.Component.IO.Mesh",
                                                      "Sofa.Component.LinearSolver.Direct",
+                                                     "Sofa.Component.Mapping.NonLinear",
                                                      "Sofa.Component.Mapping.MappedMatrix",
                                                      "Sofa.Component.Mass",
                                                      "Sofa.Component.ODESolver.Backward",
@@ -25,19 +25,18 @@ class Test(unittest.TestCase):
         root.addObject("StringMeshCreator", name="loader", resolution="20")
 
         root.addObject("EulerImplicitSolver")
-        root.addObject("SparseCholeskySolver")
+        root.addObject("EigenSimplicialLLT")
         root.addObject("GenericConstraintCorrection")
 
-        root.addObject("EdgeSetTopologyContainer", position="@loader.position", edges="@loader.edges")
+        root.addObject("EdgeSetTopologyContainer", name="edge_container", position="@loader.position", edges="@loader.edges")
         root.addObject("MechanicalObject", name="defoDOF", template="Vec3d")
         root.addObject("EdgeSetGeometryAlgorithms", drawEdges=True)
         root.addObject("FixedConstraint", indices=[0])
         root.addObject("DiagonalMass", name="mass", totalMass="1e-3")
-        root.addObject("MappingGeometricStiffnessForceField", mapping="@./extensionsNode/distanceMapping")
 
         ext = root.addChild("extensionsNode")
         ext.addObject("MechanicalObject", template="Vec1d", name="extensionsDOF")
-        ext.addObject("DistanceMapping", name="distanceMapping")
+        ext.addObject("DistanceMapping", name="distanceMapping", topology="@../edge_container")
         ext.addObject("UniformConstraint", template="Vec1d", iterative=True)
 
         Sofa.Simulation.init(root)
@@ -50,4 +49,4 @@ class Test(unittest.TestCase):
         W = root.constraint_solver.W()
 
         self.assertEqual(W.ndim, 2)
-        self.assertEqual(W.shape, (38, 38))
+        self.assertEqual(W.shape, (19, 19))
