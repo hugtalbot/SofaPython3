@@ -35,7 +35,7 @@ jobs:
 
       - name: Download latest release ZIP
         run: |
-          curl -L -o release.zip "https://github.com/sofa-framework/sofa/archive/SOFA_${LATEST_RELEASE}_Linux-Python_${PYTHON_VERSION}.zip"
+          curl -L -o release.zip "https://github.com/sofa-framework/sofa/archive/releases/download/${LATEST_RELEASE}/SOFA_${LATEST_RELEASE}_Linux-Python_${PYTHON_VERSION}.zip"
 
       - name: Unzip release
         run: |
