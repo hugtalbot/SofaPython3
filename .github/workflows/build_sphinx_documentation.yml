@@ -82,7 +82,7 @@ jobs:
           ls docs/sphinx/build/SofaPython3_${{ steps.branch_name.outputs.branch_name }}_docs.zip
           curl -X POST https://readthedocs.org/api/v2/webhook/sofapython3/88725/ \
                -H "Authorization: Token ${{ secrets.RTD_API_TOKEN }}" \
-               -F "content=@docs/sphinx/build/SofaPython3_${{ steps.branch_name.outputs.branch_name }}_docs.zip" \
+               -d "content=@docs/sphinx/build/SofaPython3_${{ steps.branch_name.outputs.branch_name }}_docs.zip" \
                -d "branches=${LATEST_RELEASE}" \
                -d "active=true" \
                -d "built=true" \
