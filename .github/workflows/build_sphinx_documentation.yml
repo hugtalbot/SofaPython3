@@ -26,12 +26,11 @@ jobs:
         id: get_release
         run: |
           LATEST_RELEASE=$(curl -s https://api.github.com/repos/sofa-framework/sofa/releases/latest | jq -r .tag_name)
-          PYTHON_VERSION=$(python3 --version)
+          PYTHON_VERSION=$(python --version | awk '{print $2}')
           echo "LATEST_RELEASE=${LATEST_RELEASE}" >> $GITHUB_ENV
           echo "${LATEST_RELEASE}"
           echo "${PYTHON_VERSION}"
-          echo "${python-version}"
-          echo "SOFA_"+"${LATEST_RELEASE}"+"_Linux-Python_"+"${PYTHON_VERSION}"+".zip"
+          echo "SOFA_${LATEST_RELEASE}_Linux-Python_${PYTHON_VERSION}.zip"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
