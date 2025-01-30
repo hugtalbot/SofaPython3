@@ -30,7 +30,7 @@ jobs:
           echo "LATEST_RELEASE=${LATEST_RELEASE}" >> $GITHUB_ENV
           echo "${LATEST_RELEASE}"
           echo "${PYTHON_VERSION}"
-          echo "https://github.com/sofa-framework/sofa/archive/releases/download/${LATEST_RELEASE}/SOFA_${LATEST_RELEASE}_Linux-Python_${PYTHON_VERSION}.zip"
+          echo "https://github.com/sofa-framework/sofa/releases/download/${LATEST_RELEASE}/SOFA_${LATEST_RELEASE}_Linux-Python_${PYTHON_VERSION}.zip"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
