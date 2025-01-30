@@ -67,9 +67,6 @@ jobs:
           cd docs/sphinx/build/
           # Create a zip file of the documentation
           zip -r SofaPython3_${{ steps.branch_name.outputs.branch_name }}_docs.zip .
-          TAG=v$(date -Iseconds | sed 's/[T:\+]/-/g')
-          echo "FULLTAG=${LATEST_RELEASE}-DocGenenration-$TAG"
-          echo "tag=$FULLTAG" >> $GITHUB_OUTPUT
             
       - name: Upload to GitHub Release
         uses: softprops/action-gh-release@v2
