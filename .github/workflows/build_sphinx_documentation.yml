@@ -27,6 +27,7 @@ jobs:
         run: |
           LATEST_RELEASE=$(curl -s https://api.github.com/repos/sofa-framework/sofa/releases/latest | jq -r .tag_name)
           echo "LATEST_RELEASE=${LATEST_RELEASE}" >> $GITHUB_ENV
+          echo "${LATEST_RELEASE}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
