@@ -66,20 +66,20 @@ jobs:
           ls -lah docs/sphinx/build/
           cd docs/sphinx/build/
           # Create a zip file of the documentation
-          zip -r SofaPython3_${{ steps.branch_name.outputs.branch_name }}_docs.zip .
+          zip -r SofaPython3_${LATEST_RELEASE}_docs.zip .
 
       - name: Tag (before release)
         run: |
-          echo "TAG=${{ steps.branch_name.outputs.branch_name }}-doc-generation"
-          git tag "${TAG}"
-          git push ${{ steps.branch_name.outputs.branch_name }} "${TAG}"
+          echo "TAG=${LATEST_RELEASE}-doc-generation"
+          git tag ${TAG}
+          git push ${LATEST_RELEASE} ${TAG}
             
       - name: Upload to GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          #tag_name: sphinx-doc-generation-${{ steps.branch_name.outputs.branch_name }}
+          tag_name: sphinx-doc-generation-${LATEST_RELEASE}
           files: |
-            SofaPython3_${{ steps.branch_name.outputs.branch_name }}_docs.zip
+            SofaPython3_${LATEST_RELEASE}_docs.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
