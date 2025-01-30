@@ -36,13 +36,18 @@ jobs:
 
       - name: Unzip release
         run: |
-          unzip release.zip -d sofa_binaries
-          ls -lah sofa_binaries
+          unzip release.zip -d extracted
+          mv extracted/* extracted/sofa_binaries
+          
+      - name: Check extracted files
+        run: |
+          echo "Listing extracted files:"
+          ls -lah extracted/release
 
       - name: Define environment variables
         run: |
           echo "RELEASE_VERSION=${LATEST_RELEASE}" >> $GITHUB_ENV
-          echo "PYTHONPATH=${{ github.workspace }}/sofa_binaries/plugins/SofaPython3/lib/python3/site-packages" >> $GITHUB_ENV
+          echo "PYTHONPATH=${{ github.workspace }}/extracted/sofa_binaries/${LATEST_RELEASE}/plugins/SofaPython3/lib/python3/site-packages" >> $GITHUB_ENV
       
       #########################
       
