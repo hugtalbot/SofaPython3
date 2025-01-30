@@ -79,6 +79,6 @@ jobs:
           
       - name: Upload ZIP to ReadTheDocs
         run: |
-          curl -X POST https://readthedocs.org/api/v3/projects/sofapython3/versions/latest/upload-html/ \
+          curl -X POST https://readthedocs.org/api/v3/projects/sofapython3/versions/latest/ \
                -H "Authorization: Token ${{ secrets.RTD_API_TOKEN }}" \
                -F "content=@docs/sphinx/build/SofaPython3_${{ steps.branch_name.outputs.branch_name }}_docs.zip"
