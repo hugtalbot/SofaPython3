@@ -72,7 +72,7 @@ jobs:
         run: |
           echo "TAG=${LATEST_RELEASE}-doc-generation"
           git tag ${TAG}
-          git push origin ${LATEST_RELEASE}
+          git push origin ${TAG}
             
       - name: Upload to GitHub Release
         uses: softprops/action-gh-release@v2
