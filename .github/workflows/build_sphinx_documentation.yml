@@ -28,6 +28,7 @@ jobs:
           LATEST_RELEASE=$(curl -s https://api.github.com/repos/sofa-framework/sofa/releases/latest | jq -r .tag_name)
           PYTHON_VERSION=$(python --version | awk '{print $2}'  | cut -d. -f1,2)
           echo "LATEST_RELEASE=${LATEST_RELEASE}" >> $GITHUB_ENV
+          echo "PYTHON_VERSION=${PYTHON_VERSION}" >> $GITHUB_ENV
           echo "${LATEST_RELEASE}"
           echo "${PYTHON_VERSION}"
         env:
