@@ -70,8 +70,8 @@ jobs:
             
       - name: Upload to GitHub Release
         uses: softprops/action-gh-release@v2
-        if: startsWith(github.ref, 'refs/tags/')
         with:
+          tag_name: "${LATEST_RELEASE}-DocGeneration"
           files: |
             SofaPython3_${{ steps.branch_name.outputs.branch_name }}_docs.zip
         env:
