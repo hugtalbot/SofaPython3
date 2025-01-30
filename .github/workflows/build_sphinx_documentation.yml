@@ -63,8 +63,9 @@ jobs:
       - name: Zip Documentation
         run: |
           # Create a zip file of the documentation
-          ls -lah build/
-          cd build/
+          ls -lah docs/sphinx/build/
+          cd docs/sphinx/build/
+          # Create a zip file of the documentation
           zip -r SofaPython3_${{ steps.branch_name.outputs.branch_name }}_docs.zip .
 
       - name: Upload to GitHub Release
