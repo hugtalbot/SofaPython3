@@ -52,8 +52,8 @@ jobs:
 
       - name: Define environment variables
         run: |
-          echo "RELEASE_VERSION=${LATEST_RELEASE}" >> $GITHUB_ENV
-          echo "PYTHONPATH=${{ github.workspace }}/extracted/sofa_binaries/${LATEST_RELEASE}/plugins/SofaPython3/lib/python3/site-packages" >> $GITHUB_ENV
+          echo "PYTHONPATH=${{ github.workspace }}/extracted/sofa_binaries/plugins/SofaPython3/lib/python3/site-packages"
+          echo "PYTHONPATH=${{ github.workspace }}/extracted/sofa_binaries/plugins/SofaPython3/lib/python3/site-packages" >> $GITHUB_ENV
       
       #########################
       
