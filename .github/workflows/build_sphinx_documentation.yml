@@ -21,7 +21,6 @@ jobs:
           cd docs/sphinx/
           pip install -r source/requirements.txt  # Replace with your project's requirements file
 
-      #########################
       - name: Get latest release tag of the remote repository
         id: get_release
         run: |
@@ -54,9 +53,7 @@ jobs:
         run: |
           echo "PYTHONPATH=${{ github.workspace }}/extracted/sofa_binaries/plugins/SofaPython3/lib/python3/site-packages"
           echo "PYTHONPATH=${{ github.workspace }}/extracted/sofa_binaries/plugins/SofaPython3/lib/python3/site-packages" >> $GITHUB_ENV
-      
-      #########################
-      
+          
       - name: Build Sphinx documentation
         run: |
           cd docs/sphinx/
@@ -66,6 +63,7 @@ jobs:
       - name: Zip Documentation
         run: |
           # Create a zip file of the documentation
+          ls -lah build/
           cd build/
           zip -r SofaPython3_${{ steps.branch_name.outputs.branch_name }}_docs.zip .
 
