@@ -19,6 +19,7 @@ jobs:
       - name: Install dependencies
         run: |
           cd docs/sphinx/
+          pip install sphinx_search
           pip install -r source/requirements.txt  # Replace with your project's requirements file
 
       - name: Build Sphinx documentation
