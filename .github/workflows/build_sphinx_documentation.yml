@@ -70,7 +70,7 @@ jobs:
 
       - name: Create tag (before release)
         run: |
-          echo "RELEASE_TAG=${{ LATEST_RELEASE }}-doc-generation" >> $GITHUB_ENV
+          echo "RELEASE_TAG=${LATEST_RELEASE}-doc-generation" >> $GITHUB_ENV
           echo "RELEASE_TAG=${LATEST_RELEASE}-doc-generation"
             
       - name: Upload to GitHub Release
