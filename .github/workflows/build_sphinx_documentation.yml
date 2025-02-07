@@ -68,16 +68,15 @@ jobs:
           # Create a zip file of the documentation
           zip -r SofaPython3_${LATEST_RELEASE}_docs.zip .
 
-      - name: Tag (before release)
+      - name: Create tag (before release)
         run: |
-          echo "TAG=${LATEST_RELEASE}-doc-generation"
-          git tag ${TAG}
-          git push origin ${TAG}
+          echo "RELEASE_TAG=${{ LATEST_RELEASE }}-doc-generation" >> $GITHUB_ENV
+          echo "RELEASE_TAG=${LATEST_RELEASE}-doc-generation"
             
       - name: Upload to GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: sphinx-doc-generation-${LATEST_RELEASE}
+          tag_name: ${{ env.RELEASE_TAG }}
           files: |
             SofaPython3_${LATEST_RELEASE}_docs.zip
         env:
