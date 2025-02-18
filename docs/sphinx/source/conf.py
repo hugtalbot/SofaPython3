@@ -45,7 +45,6 @@ import sys
 import os
 import re
 from pathlib import Path
-import sphinx_wagtail_theme
 
 ## Include Python objects as they appear in source files
 ## Default: alphabetically ('alphabetical')
@@ -113,8 +112,8 @@ todo_include_todos = False
 #
 #html_theme = 'alabaster'
 
-html_theme = "sphinx_wagtail_theme"
-html_theme_path = [sphinx_wagtail_theme.get_html_theme_path()]
+html_theme = "sphinx_rtd_theme"
+html_theme_path = ["_themes", ]
 html_title = 'SofaPython3 plugin documentation'
 
 # Theme options are theme-specific and customize the look and feel of a theme
@@ -125,7 +124,6 @@ html_theme_options = {
     'display_version': True,
     'prev_next_buttons_location': 'bottom',
     'style_external_links': False,
-    "github_url": "https://github.com/sofa-framework/sofapython3",
 
     # Toc options
     'collapse_navigation': False,
@@ -133,11 +131,6 @@ html_theme_options = {
     'titles_only': False
 }
 
-html_context = {
-        "github_user": "sofa-framework",
-        "github_repo": "sofapython3",
-        "doc_path": "docs",
-    }
 
 
 # Add any paths that contain custom static files (such as style sheets) here,
