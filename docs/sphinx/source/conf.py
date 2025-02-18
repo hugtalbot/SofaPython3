@@ -112,7 +112,7 @@ todo_include_todos = False
 #
 #html_theme = 'alabaster'
 
-html_theme = "sphinx_rtd_theme"
+html_theme = "sphinx_wagtail_theme"
 html_theme_path = ["_themes", ]
 html_title = 'SofaPython3 plugin documentation'
 
@@ -124,12 +124,7 @@ html_theme_options = {
     'display_version': True,
     'prev_next_buttons_location': 'bottom',
     'style_external_links': False,
-    "icon": {
-            "repo": "fontawesome/brands/github",
-        },
-    "site_url": "https://sphinx-needs.readthedocs.io/",
-    "repo_url": "https://github.com/useblocks/sphinx-needs",
-    "repo_name": "SofaPython3",
+    "github_url": "https://github.com/sofa-framework/sofapython3",
 
     # Toc options
     'collapse_navigation': False,
