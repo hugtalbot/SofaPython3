@@ -71,9 +71,10 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'SofaPython3'
-copyright = u'2023, SOFA Framework'
+copyright = '%Y, SOFA Framework'
 author = u'consortium@sofa-framework.org'
-github_url = u'https://github.com/sofa-framework/sofapython3/'
+
+epub_scheme = 'url'
 
 stream = os.popen("git rev-parse --abbrev-ref HEAD")
 version = stream.read()
