@@ -73,6 +73,7 @@ master_doc = 'index'
 project = u'SofaPython3'
 copyright = u'2023, SOFA Framework'
 author = u'consortium@sofa-framework.org'
+github_url = u'https://github.com/sofa-framework/sofapython3/'
 
 stream = os.popen("git rev-parse --abbrev-ref HEAD")
 version = stream.read()
@@ -124,7 +125,6 @@ html_theme_options = {
     'display_version': True,
     'prev_next_buttons_location': 'bottom',
     'style_external_links': False,
-    'github_url':True,
 
     # Toc options
     'collapse_navigation': False,
