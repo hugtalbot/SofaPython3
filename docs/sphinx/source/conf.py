@@ -124,6 +124,7 @@ html_theme_options = {
     'display_version': True,
     'prev_next_buttons_location': 'bottom',
     'style_external_links': False,
+    'github_url':True,
 
     # Toc options
     'collapse_navigation': False,
