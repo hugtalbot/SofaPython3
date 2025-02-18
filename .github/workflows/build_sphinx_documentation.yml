@@ -68,6 +68,7 @@ jobs:
           cd docs/sphinx/build/
           # Create a zip file of the documentation
           zip -r SofaPython3_${LATEST_RELEASE}_docs.zip .
+          ls .
 
       - name: Create tag (before release)
         run: |
