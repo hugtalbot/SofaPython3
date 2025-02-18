@@ -80,7 +80,7 @@ jobs:
         with:
           tag_name: ${{ env.RELEASE_TAG }}
           files: |
-            SofaPython3_${{ env.LATEST_RELEASE }}_docs.zip
+            docs/sphinx/build/SofaPython3_${{ env.LATEST_RELEASE }}_docs.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
