@@ -126,6 +126,7 @@ html_theme_options = {
     'display_version': True,
     'prev_next_buttons_location': 'bottom',
     'style_external_links': False,
+    "github_url": "https://github.com/sofa-framework/sofapython3/",
 
     # Toc options
     'collapse_navigation': False,
