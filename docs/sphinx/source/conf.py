@@ -45,6 +45,7 @@ import sys
 import os
 import re
 from pathlib import Path
+import sphinx_wagtail_theme
 
 ## Include Python objects as they appear in source files
 ## Default: alphabetically ('alphabetical')
@@ -113,7 +114,7 @@ todo_include_todos = False
 #html_theme = 'alabaster'
 
 html_theme = "sphinx_wagtail_theme"
-html_theme_path = ["_themes", ]
+html_theme_path = [sphinx_wagtail_theme.get_html_theme_path()]
 html_title = 'SofaPython3 plugin documentation'
 
 # Theme options are theme-specific and customize the look and feel of a theme
