@@ -124,7 +124,9 @@ html_theme_options = {
     'display_version': True,
     'prev_next_buttons_location': 'bottom',
     'style_external_links': False,
-    'github_url': 'https://github.com/sofa-framework/sofapython3/',
+    "top_of_page_buttons": ["view", "edit"],
+    'github_url': 'https://github.com/sofa-framework/sofapython3',
+    "source_repository": "https://github.com/sofa-framework/sofapython3",
 
     # Toc options
     'collapse_navigation': False,
@@ -132,6 +134,11 @@ html_theme_options = {
     'titles_only': False
 }
 
+html_context = {
+        "github_user": "sofa-framework",
+        "github_repo": "sofapython3",
+        "doc_path": "docs",
+    }
 
 
 # Add any paths that contain custom static files (such as style sheets) here,
