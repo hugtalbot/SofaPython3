@@ -124,9 +124,12 @@ html_theme_options = {
     'display_version': True,
     'prev_next_buttons_location': 'bottom',
     'style_external_links': False,
-    "top_of_page_buttons": ["view", "edit"],
-    'github_url': 'https://github.com/sofa-framework/sofapython3',
-    "source_repository": "https://github.com/sofa-framework/sofapython3",
+    "icon": {
+            "repo": "fontawesome/brands/github",
+        },
+    "site_url": "https://sphinx-needs.readthedocs.io/",
+    "repo_url": "https://github.com/useblocks/sphinx-needs",
+    "repo_name": "SofaPython3",
 
     # Toc options
     'collapse_navigation': False,
