@@ -53,6 +53,7 @@ jobs:
         run: |
           echo "PYTHONPATH=${{ github.workspace }}/extracted/sofa_binaries/plugins/SofaPython3/lib/python3/site-packages"
           echo "PYTHONPATH=${{ github.workspace }}/extracted/sofa_binaries/plugins/SofaPython3/lib/python3/site-packages" >> $GITHUB_ENV
+          ls ${{ github.workspace }}/extracted/sofa_binaries/plugins/SofaPython3/lib/python3/site-packages
           
       - name: Build Sphinx documentation
         run: |
