@@ -125,7 +125,7 @@ html_title = 'SofaPython3 plugin documentation'
 # documentation.
 #
 html_theme_options = {
-    'display_version': True,
+    'version_selector': True,
     'prev_next_buttons_location': 'bottom',
     'style_external_links': False,
 
