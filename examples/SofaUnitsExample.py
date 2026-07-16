@@ -57,12 +57,12 @@ def createScene(root):
 
     root.addObject('VisualStyle', displayFlags="showCollisionModels")
 
-    root.addObject('MeshOBJLoader', name="LiverSurface", filename="mesh/liver-smooth.obj")
+    root.addObject('MeshOBJLoader', name="surface_mesh_loader", filename="mesh/liver-smooth.obj")
 
     liver = root.addChild('Liver')
-    liver.addObject('EulerImplicitSolver', name="cg_odesolver")
-    liver.addObject('CGLinearSolver', name="linear_solver", iterations= 25, tolerance= scene_unit(1e-9, m**2) , threshold= scene_unit(1e-9, m**2) )
-    liver.addObject('MeshGmshLoader', name="meshLoader", filename="mesh/liver.msh")
+    liver.addObject('EulerImplicitSolver', name="integration_scheme")
+    liver.addObject('CGLinearSolver', name="iterative_linear_solver", iterations= 25, tolerance= scene_unit(1e-9, m**2) , threshold= scene_unit(1e-9, m**2) )
+    liver.addObject('MeshGmshLoader', name="volume_mesh_loader", filename="mesh/liver.msh")
     liver.addObject('TetrahedronSetTopologyContainer', name="topo", src="@meshLoader")
     liver.addObject('MechanicalObject', name="dofs", src="@meshLoader")
     liver.addObject('TetrahedronSetGeometryAlgorithms', template="Vec3d", name="GeomAlgo")

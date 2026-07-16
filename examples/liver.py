@@ -52,12 +52,12 @@ def createScene(root):
     root.addObject('CollisionResponse', name="CollisionResponse", response="PenalityContactForceField")
     root.addObject('DiscreteIntersection')
 
-    root.addObject('MeshOBJLoader', name="LiverSurface", filename="mesh/liver-smooth.obj")
+    root.addObject('MeshOBJLoader', name="surface_mesh_loader", filename="mesh/liver-smooth.obj")
 
     liver = root.addChild('Liver')
-    liver.addObject('EulerImplicitSolver', name="cg_odesolver", rayleighStiffness="0.1", rayleighMass="0.1")
-    liver.addObject('CGLinearSolver', name="linear_solver", iterations="25", tolerance="1e-09", threshold="1e-09")
-    liver.addObject('MeshGmshLoader', name="meshLoader", filename="mesh/liver.msh")
+    liver.addObject('EulerImplicitSolver', name="integration_scheme", rayleighStiffness="0.1", rayleighMass="0.1")
+    liver.addObject('CGLinearSolver', name="iterative_linear_solver", iterations="25", tolerance="1e-09", threshold="1e-09")
+    liver.addObject('MeshGmshLoader', name="volume_mesh_loader", filename="mesh/liver.msh")
     liver.addObject('TetrahedronSetTopologyContainer', name="topo", src="@meshLoader")
     liver.addObject('MechanicalObject', name="dofs", src="@meshLoader")
     liver.addObject('TetrahedronSetGeometryAlgorithms', template="Vec3d", name="GeomAlgo")
