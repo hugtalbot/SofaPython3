@@ -63,8 +63,8 @@ def createScene(root):
     liver.addObject('EulerImplicitSolver', name="integration_scheme")
     liver.addObject('CGLinearSolver', name="iterative_linear_solver", iterations= 25, tolerance= scene_unit(1e-9, m**2) , threshold= scene_unit(1e-9, m**2) )
     liver.addObject('MeshGmshLoader', name="volume_mesh_loader", filename="mesh/liver.msh")
-    liver.addObject('TetrahedronSetTopologyContainer', name="topo", src="@meshLoader")
-    liver.addObject('MechanicalObject', name="dofs", src="@meshLoader")
+    liver.addObject('TetrahedronSetTopologyContainer', name="topo", src="@volume_mesh_loader")
+    liver.addObject('MechanicalObject', name="dofs", src="@volume_mesh_loader")
     liver.addObject('TetrahedronSetGeometryAlgorithms', template="Vec3d", name="GeomAlgo")
 
     # You can create values that have a dimension by multiplying a float/int by a unit
@@ -86,7 +86,7 @@ def createScene(root):
     liver.addObject('RestShapeSpringsForceField', name="WeakConstraint", points=[3, 39, 64], stiffness=scene_unit(stiffness))
 
     visu = liver.addChild('Visu')
-    visu.addObject('OglModel', name="VisualModel", src="@../../LiverSurface")
+    visu.addObject('OglModel', name="VisualModel", src="@../../surface_mesh_loader")
     visu.addObject('BarycentricMapping', name="VisualMapping", input="@../dofs", output="@VisualModel")
 
     return root

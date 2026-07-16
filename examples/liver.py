@@ -58,15 +58,15 @@ def createScene(root):
     liver.addObject('EulerImplicitSolver', name="integration_scheme", rayleighStiffness="0.1", rayleighMass="0.1")
     liver.addObject('CGLinearSolver', name="iterative_linear_solver", iterations="25", tolerance="1e-09", threshold="1e-09")
     liver.addObject('MeshGmshLoader', name="volume_mesh_loader", filename="mesh/liver.msh")
-    liver.addObject('TetrahedronSetTopologyContainer', name="topo", src="@meshLoader")
-    liver.addObject('MechanicalObject', name="dofs", src="@meshLoader")
+    liver.addObject('TetrahedronSetTopologyContainer', name="topo", src="@volume_mesh_loader")
+    liver.addObject('MechanicalObject', name="dofs", src="@volume_mesh_loader")
     liver.addObject('TetrahedronSetGeometryAlgorithms', template="Vec3d", name="GeomAlgo")
     liver.addObject('DiagonalMass', name="Mass", massDensity="1.0")
     liver.addObject('TetrahedralCorotationalFEMForceField', template="Vec3d", name="FEM", method="large", poissonRatio="0.3", youngModulus="3000", computeGlobalMatrix="0")
     liver.addObject('FixedProjectiveConstraint', name="FixedConstraint", indices="3 39 64")
 
     visu = liver.addChild('Visu')
-    visu.addObject('OglModel', name="VisualModel", src="@../../LiverSurface")
+    visu.addObject('OglModel', name="VisualModel", src="@../../surface_mesh_loader")
     visu.addObject('BarycentricMapping', name="VisualMapping", input="@../dofs", output="@VisualModel")
 
     surf = liver.addChild('Surf')
